@@ -4,13 +4,14 @@ info:
   description: API for managing tours
   version: 1.0.0
 servers:
-  - url: 'http://localhost:8080/tours'  # Replace with your base URL
+  - url: 'http://localhost:8080/tour'  # Replace with your base URL
 
 paths:
-  /tours:
+  /tourCrud:
     get:
       summary: Get list of tours
       description: Returns a list of all tours with pagination support.
+      operationId: getTours
       parameters:
         - name: page
           in: query
@@ -36,6 +37,7 @@ paths:
     post:
       summary: Create a new tour
       description: Creates a new tour based on the provided data.
+      operationId: postTour
       requestBody:
         description: New tour data
         required: true
@@ -51,17 +53,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/Tour'
 
-  /tours/{tourId}:
+  /tourCrud/{tourId}:
     get:
       summary: Get tour by ID
       description: Returns information about a tour by its ID.
+      operationId: getTourById
       parameters:
         - name: tourId
           in: path
           description: Tour ID
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
       responses:
         '200':
           description: Successful response with tour data
@@ -74,13 +78,15 @@ paths:
     put:
       summary: Update tour
       description: Updates tour information by its ID.
+      operationId: putTourById
       parameters:
         - name: tourId
           in: path
           description: Tour ID
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
       requestBody:
         description: Updated tour data
         required: true
@@ -97,16 +103,46 @@ paths:
                 $ref: '#/components/schemas/Tour'
         '404':
           description: Tour not found
-    delete:
-      summary: Delete tour
-      description: Deletes a tour by its ID.
+    patch:
+      summary: Partially update tour
+      description: Partially updates tour information by its ID.
+      operationId: patchTourById
       parameters:
         - name: tourId
           in: path
           description: Tour ID
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
+      requestBody:
+        description: Partially updated tour data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tour'
+      responses:
+        '200':
+          description: Tour successfully partially updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tour'
+        '404':
+          description: Tour not found
+    delete:
+      summary: Delete tour
+      description: Deletes a tour by its ID.
+      operationId: deleteTourById
+      parameters:
+        - name: tourId
+          in: path
+          description: Tour ID
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '204':
           description: Tour successfully deleted
@@ -119,7 +155,8 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           description: Tour ID
         name:
           type: string
