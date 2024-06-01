@@ -2,11 +2,9 @@ package yermakov.oleksii.tourregistrationservice.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.NativeWebRequest;
-import yermakov.oleksii.tourregistrationservice.model.Tour;
+import yermakov.oleksii.tourregistrationservice.model.TourDto;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -15,7 +13,7 @@ public class TourController implements TourCrudApi {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<Tour>> getTours(
+    public ResponseEntity<List<TourDto>> getTours(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer size) {
         return TourCrudApi.super.getTours(page, size);
@@ -23,8 +21,8 @@ public class TourController implements TourCrudApi {
 
     @Override
     @PostMapping
-    public ResponseEntity<Tour> postTour(@RequestBody Tour tour) {
-        return TourCrudApi.super.postTour(tour);
+    public ResponseEntity<TourDto> postTour(@RequestBody TourDto tourDto) {
+        return TourCrudApi.super.postTour(tourDto);
     }
 
     @Override
@@ -35,18 +33,19 @@ public class TourController implements TourCrudApi {
 
     @Override
     @GetMapping("/{tourId}")
-    public ResponseEntity<Tour> getTourById(@PathVariable("tourId")UUID tourId) {
+    public ResponseEntity<TourDto> getTourById(@PathVariable("tourId")UUID tourId) {
         return TourCrudApi.super.getTourById(tourId);
     }
 
     @Override
     @PutMapping("/{tourId}")
-    public ResponseEntity<Tour> putTourById(@PathVariable("tourId")UUID tourId, @RequestBody Tour tour) {
-        return TourCrudApi.super.putTourById(tourId, tour);
+    public ResponseEntity<TourDto> putTourById(@PathVariable("tourId")UUID tourId, @RequestBody TourDto tourDto) {
+        return TourCrudApi.super.putTourById(tourId, tourDto);
     }
 
     @Override
-    public ResponseEntity<Tour> patchTourById(UUID tourId, Tour tour) {
-        return TourCrudApi.super.patchTourById(tourId, tour);
+    public ResponseEntity<TourDto> patchTourById(UUID tourId, TourDto tourDto) {
+        return
+                TourCrudApi.super.patchTourById(tourId, tourDto);
     }
 }

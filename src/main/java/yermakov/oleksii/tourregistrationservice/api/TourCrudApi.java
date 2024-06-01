@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
-import yermakov.oleksii.tourregistrationservice.model.Tour;
+import yermakov.oleksii.tourregistrationservice.model.TourDto;
 
 import java.io.IOException;
 import java.util.List;
@@ -82,7 +82,7 @@ public interface TourCrudApi {
         description = "Returns information about a tour by its ID.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful response with tour data", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Tour.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TourDto.class))
             }),
             @ApiResponse(responseCode = "404", description = "Tour not found")
         }
@@ -93,7 +93,7 @@ public interface TourCrudApi {
         produces = { "application/json" }
     )
     
-    default ResponseEntity<Tour> getTourById(
+    default ResponseEntity<TourDto> getTourById(
         @Parameter(name = "tourId", description = "Tour ID", required = true, in = ParameterIn.PATH) @PathVariable("tourId") UUID tourId
     ) {
         getRequest().ifPresent(request -> {
@@ -124,7 +124,7 @@ public interface TourCrudApi {
         description = "Returns a list of all tours with pagination support.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Successful response with an array of tours", content = {
-                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Tour.class)))
+                @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TourDto.class)))
             })
         }
     )
@@ -134,7 +134,7 @@ public interface TourCrudApi {
         produces = { "application/json" }
     )
     
-    default ResponseEntity<List<Tour>> getTours(
+    default ResponseEntity<List<TourDto>> getTours(
         @Parameter(name = "page", description = "Page number (starting from 0)", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
         @Parameter(name = "size", description = "Page size", in = ParameterIn.QUERY) @Valid @RequestParam(value = "size", required = false, defaultValue = "10") Integer size
     ) {
@@ -157,7 +157,7 @@ public interface TourCrudApi {
      * Partially updates tour information by its ID.
      *
      * @param tourId Tour ID (required)
-     * @param tour Partially updated tour data (required)
+     * @param tourDto Partially updated tour data (required)
      * @return Tour successfully partially updated (status code 200)
      *         or Tour not found (status code 404)
      */
@@ -167,7 +167,7 @@ public interface TourCrudApi {
         description = "Partially updates tour information by its ID.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Tour successfully partially updated", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Tour.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TourDto.class))
             }),
             @ApiResponse(responseCode = "404", description = "Tour not found")
         }
@@ -179,9 +179,9 @@ public interface TourCrudApi {
         consumes = { "application/json" }
     )
     
-    default ResponseEntity<Tour> patchTourById(
+    default ResponseEntity<TourDto> patchTourById(
         @Parameter(name = "tourId", description = "Tour ID", required = true, in = ParameterIn.PATH) @PathVariable("tourId") UUID tourId,
-        @Parameter(name = "Tour", description = "Partially updated tour data", required = true) @Valid @RequestBody Tour tour
+        @Parameter(name = "Tour", description = "Partially updated tour data", required = true) @Valid @RequestBody TourDto tourDto
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -201,7 +201,7 @@ public interface TourCrudApi {
      * POST /tourCrud : Create a new tour
      * Creates a new tour based on the provided data.
      *
-     * @param tour New tour data (required)
+     * @param tourDto New tour data (required)
      * @return Tour successfully created (status code 201)
      */
     @Operation(
@@ -210,7 +210,7 @@ public interface TourCrudApi {
         description = "Creates a new tour based on the provided data.",
         responses = {
             @ApiResponse(responseCode = "201", description = "Tour successfully created", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Tour.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TourDto.class))
             })
         }
     )
@@ -221,8 +221,8 @@ public interface TourCrudApi {
         consumes = { "application/json" }
     )
     
-    default ResponseEntity<Tour> postTour(
-        @Parameter(name = "Tour", description = "New tour data", required = true) @Valid @RequestBody Tour tour
+    default ResponseEntity<TourDto> postTour(
+        @Parameter(name = "Tour", description = "New tour data", required = true) @Valid @RequestBody TourDto tourDto
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -243,7 +243,7 @@ public interface TourCrudApi {
      * Updates tour information by its ID.
      *
      * @param tourId Tour ID (required)
-     * @param tour Updated tour data (required)
+     * @param tourDto Updated tour data (required)
      * @return Tour successfully updated (status code 200)
      *         or Tour not found (status code 404)
      */
@@ -253,7 +253,7 @@ public interface TourCrudApi {
         description = "Updates tour information by its ID.",
         responses = {
             @ApiResponse(responseCode = "200", description = "Tour successfully updated", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = Tour.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = TourDto.class))
             }),
             @ApiResponse(responseCode = "404", description = "Tour not found")
         }
@@ -265,9 +265,9 @@ public interface TourCrudApi {
         consumes = { "application/json" }
     )
     
-    default ResponseEntity<Tour> putTourById(
+    default ResponseEntity<TourDto> putTourById(
         @Parameter(name = "tourId", description = "Tour ID", required = true, in = ParameterIn.PATH) @PathVariable("tourId") UUID tourId,
-        @Parameter(name = "Tour", description = "Updated tour data", required = true) @Valid @RequestBody Tour tour
+        @Parameter(name = "Tour", description = "Updated tour data", required = true) @Valid @RequestBody TourDto tourDto
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
