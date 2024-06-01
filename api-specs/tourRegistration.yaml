@@ -33,7 +33,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Tour'
+                  $ref: '#/components/schemas/TourDto'
     post:
       summary: Create a new tour
       description: Creates a new tour based on the provided data.
@@ -44,14 +44,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tour'
+              $ref: '#/components/schemas/TourDto'
       responses:
         '201':
           description: Tour successfully created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tour'
+                $ref: '#/components/schemas/TourDto'
 
   /tourCrud/{tourId}:
     get:
@@ -72,7 +72,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tour'
+                $ref: '#/components/schemas/TourDto'
         '404':
           description: Tour not found
     put:
@@ -93,14 +93,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tour'
+              $ref: '#/components/schemas/TourDto'
       responses:
         '200':
           description: Tour successfully updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tour'
+                $ref: '#/components/schemas/TourDto'
         '404':
           description: Tour not found
     patch:
@@ -121,14 +121,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tour'
+              $ref: '#/components/schemas/TourDto'
       responses:
         '200':
           description: Tour successfully partially updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tour'
+                $ref: '#/components/schemas/TourDto'
         '404':
           description: Tour not found
     delete:
@@ -151,7 +151,7 @@ paths:
 
 components:
   schemas:
-    Tour:
+    TourDto:
       type: object
       properties:
         id:
@@ -177,4 +177,4 @@ components:
           description: Tour end date
       required:
         - name
-        - price
+        - priceS
