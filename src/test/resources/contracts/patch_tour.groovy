@@ -4,15 +4,16 @@ package contracts
 // https://github.com/spring-cloud-samples/spring-cloud-contract-samples/tree/main/producer_java/src/test/java/contracts/beer/rest
 import org.springframework.cloud.contract.spec.Contract;
 
+
 Contract.make {
     description "Partially updates tour information by its ID"
     request {
         method PATCH()
         urlPath('http://localhost:8080/tour/' + $(regex('[0-9]+')))
         body([
-                name       : $(optional(regex('.+'))),
-                description: $(optional(regex('.+'))),
-                price      : $(optional(regex('[0-9]+(\\.[0-9]{1,2})?')))
+                name       : $(consumer(optional(regex('.+'))),producer("Updated name")),
+                description: $(consumer(optional(regex('.+'))),producer("Updated description")),
+                price      : $(consumer(optional(regex('[0-9]+(\\.[0-9]{1,2})?'))),producer(100.00))
         ])
         headers {
             contentType(applicationJson())
