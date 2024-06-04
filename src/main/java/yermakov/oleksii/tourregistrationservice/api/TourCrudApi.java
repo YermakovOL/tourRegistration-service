@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Generated;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import yermakov.oleksii.tourregistrationservice.model.TourDto;
 
 import java.io.IOException;
-import java.util.List;
+import java.net.URI;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -134,7 +135,7 @@ public interface TourCrudApi {
         produces = { "application/json" }
     )
     
-    default ResponseEntity<List<TourDto>> getTours(
+    default ResponseEntity<Page<TourDto>> getTours(
         @Parameter(name = "page", description = "Page number (starting from 0)", in = ParameterIn.QUERY) @Valid @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
         @Parameter(name = "size", description = "Page size", in = ParameterIn.QUERY) @Valid @RequestParam(value = "size", required = false, defaultValue = "10") Integer size
     ) {
@@ -221,7 +222,7 @@ public interface TourCrudApi {
         consumes = { "application/json" }
     )
     
-    default ResponseEntity<TourDto> postTour(
+    default ResponseEntity<URI> postTour(
         @Parameter(name = "Tour", description = "New tour data", required = true) @Valid @RequestBody TourDto tourDto
     ) {
         getRequest().ifPresent(request -> {
