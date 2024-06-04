@@ -1,8 +1,9 @@
 package yermakov.oleksii.tourregistrationservice.service;
 
+import org.springframework.data.domain.Page;
 import yermakov.oleksii.tourregistrationservice.model.TourDto;
 
-import java.util.List;
+import java.net.URI;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,15 +16,15 @@ public interface TourService {
      * @param size the number of tours per page.
      * @return a list of tours.
      */
-    List<TourDto> getTours(Integer page, Integer size);
+    Page<TourDto> getTours(Integer page, Integer size);
 
     /**
      * Create a new tour.
      *
      * @param tourDto the tour to create.
-     * @return the created tour wrapped in an Optional.
+     * @return Location of created tour.
      */
-    Optional<TourDto> postTour(TourDto tourDto);
+    URI saveTour(TourDto tourDto);
 
     /**
      * Delete a tour by its ID.
@@ -48,7 +49,7 @@ public interface TourService {
      * @param tourDto the updated tour.
      * @return the updated tour wrapped in an Optional.
      */
-    Optional<TourDto> putTourById(UUID tourId, TourDto tourDto);
+    Optional<TourDto> updateTourById(UUID tourId, TourDto tourDto);
 
     /**
      * Partially update a tour by its ID.
@@ -57,5 +58,5 @@ public interface TourService {
      * @param tourDto the tour data to update.
      * @return the updated tour wrapped in an Optional.
      */
-    Optional<TourDto> patchTourById(UUID tourId, TourDto tourDto);
+    Optional<TourDto> partiallyUpdateTourById(UUID tourId, TourDto tourDto);
 }
