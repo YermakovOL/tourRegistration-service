@@ -6,6 +6,9 @@ import jakarta.annotation.Generated;
 import jakarta.persistence.Id;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -16,7 +19,9 @@ import java.util.UUID;
 /**
  * Tour
  */
-
+@Setter
+@Builder
+@AllArgsConstructor
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-05-30T18:29:47.794572300+03:00[Europe/Kiev]", comments = "Generator version: 7.5.0")
 public class TourDto {
   @Id
@@ -62,11 +67,7 @@ public class TourDto {
     return id;
   }
 
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-  public TourDto name(String name) {
+    public TourDto name(String name) {
     this.name = name;
     return this;
   }
@@ -82,11 +83,7 @@ public class TourDto {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public TourDto description(String description) {
+    public TourDto description(String description) {
     this.description = description;
     return this;
   }
@@ -102,11 +99,7 @@ public class TourDto {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public TourDto price(BigDecimal price) {
+    public TourDto price(BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -122,11 +115,7 @@ public class TourDto {
     return price;
   }
 
-  public void setPrice(BigDecimal price) {
-    this.price = price;
-  }
-
-  public TourDto startDate(LocalDate startDate) {
+    public TourDto startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -142,11 +131,7 @@ public class TourDto {
     return startDate;
   }
 
-  public void setStartDate(LocalDate startDate) {
-    this.startDate = startDate;
-  }
-
-  public TourDto endDate(LocalDate endDate) {
+    public TourDto endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -162,11 +147,7 @@ public class TourDto {
     return endDate;
   }
 
-  public void setEndDate(LocalDate endDate) {
-    this.endDate = endDate;
-  }
-
-  @Override
+    @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
