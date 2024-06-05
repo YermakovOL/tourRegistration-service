@@ -1,5 +1,6 @@
 package yermakov.oleksii.tourregistrationservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
@@ -24,7 +25,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-05-30T18:29:47.794572300+03:00[Europe/Kiev]", comments = "Generator version: 7.5.0")
 public class TourDto {
-  @Id
   private UUID id;
 
   private String name;
@@ -33,9 +33,11 @@ public class TourDto {
 
   private BigDecimal price;
 
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate startDate;
 
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate endDate;
 
