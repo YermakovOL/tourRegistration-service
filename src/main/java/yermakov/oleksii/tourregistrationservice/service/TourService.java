@@ -24,7 +24,7 @@ public interface TourService {
      * @param tourDto the tour to create.
      * @return Location of created tour.
      */
-    URI saveTour(TourDto tourDto);
+    String saveTour(TourDto tourDto);
 
     /**
      * Delete a tour by its ID.

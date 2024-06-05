@@ -56,9 +56,9 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public URI saveTour(TourDto tourDto) {
+    public String saveTour(TourDto tourDto) {
         Tour save = tourRepository.save(tourMapper.convertDtoIntoTour(tourDto));
-        return URI.create(save.getId().toString());
+        return save.getId().toString();
     }
 
     @Override
@@ -77,15 +77,15 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Optional<TourDto> updateTourById(UUID tourId, TourDto tourDto) {
-        Optional<Tour> foundTour = tourRepository.findById(tourId);
-        foundTour.ifPresent(tour -> {
+        return tourRepository.findById(tourId).map(tour -> {
             tour.setName(tourDto.getName());
             tour.setDescription(tourDto.getDescription());
             tour.setPrice(tourDto.getPrice());
             tour.setStartDate(tourDto.getStartDate());
             tour.setEndDate(tourDto.getEndDate());
+            Tour savedTour = tourRepository.save(tour);
+            return tourMapper.convertTourIntoDto(savedTour);
         });
-        return foundTour.map(tourMapper::convertTourIntoDto);
     }
 
     @Override

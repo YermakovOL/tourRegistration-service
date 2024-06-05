@@ -15,7 +15,6 @@ import yermakov.oleksii.tourregistrationservice.model.TourDto;
 import yermakov.oleksii.tourregistrationservice.service.mapper.TourMapper;
 import yermakov.oleksii.tourregistrationservice.service.repository.TourRepository;
 
-import javax.naming.ldap.PagedResultsResponseControl;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
@@ -83,9 +82,9 @@ class TourServiceImplTest {
 
         //when
         TourDto tourDto = tourDtoList.get(0);
-        URI uri = tourService.saveTour(tourDto);
+        String uri = tourService.saveTour(tourDto);
         //then
-        assertThat(uri).isEqualTo(URI.create(randomUUID.toString()));
+        assertThat(uri).isEqualTo(randomUUID.toString());
     }
 
     @Test
