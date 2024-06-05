@@ -27,13 +27,28 @@ paths:
             default: 10
       responses:
         '200':
-          description: Successful response with an array of tours
+          description: Successful response with a paginated list of tours
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TourDto'
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TourDto'
+                  totalElements:
+                    type: integer
+                    description: Total number of tours
+                  totalPages:
+                    type: integer
+                    description: Total number of pages
+                  size:
+                    type: integer
+                    description: Number of tours per page
+                  number:
+                    type: integer
+                    description: Current page number
     post:
       summary: Create a new tour
       description: Creates a new tour based on the provided data.
@@ -52,6 +67,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TourDto'
+          headers:
+            Location:
+              description: URI of the created tour
+              schema:
+                type: string
 
   /tourCrud/{tourId}:
     get:
