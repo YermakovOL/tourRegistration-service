@@ -21,7 +21,7 @@
         response {
             status CREATED()
             headers {
-                header('Location', $(" /tourCrud/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"))
+                header('Location', regex('/tourCrud/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'))
             }
         }
     }
