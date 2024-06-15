@@ -1,17 +1,14 @@
 package yermakov.oleksii.tourregistrationservice.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import yermakov.oleksii.tourregistrationservice.model.Tour;
 import yermakov.oleksii.tourregistrationservice.model.TourDto;
 import yermakov.oleksii.tourregistrationservice.service.mapper.TourMapper;
 import yermakov.oleksii.tourregistrationservice.service.repository.TourRepository;
 
-import java.net.URI;
 import java.util.Optional;
 import java.util.UUID;
 

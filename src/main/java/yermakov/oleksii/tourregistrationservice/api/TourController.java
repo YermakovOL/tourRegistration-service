@@ -25,7 +25,7 @@ public class TourController implements TourCrudApi {
     @GetMapping
     public ResponseEntity<Page<TourDto>> getTours(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer size) {
+            @RequestParam(value = "size", defaultValue = "25") Integer size) {
         return ResponseEntity.ok(tourService.getTours(page, size));
     }
 
