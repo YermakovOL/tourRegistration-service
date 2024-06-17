@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import yermakov.oleksii.tourregistrationservice.api.TourController;
+import yermakov.oleksii.tourregistrationservice.config.SpringSecTestConfig;
 import yermakov.oleksii.tourregistrationservice.model.TourDto;
 import yermakov.oleksii.tourregistrationservice.service.TourService;
 
@@ -27,8 +29,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TourController.class)
+@Import(SpringSecTestConfig.class)
 class TourControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -37,20 +39,21 @@ class TourControllerTest {
 
     @MockBean
     private TourService tourService;
-
     @Test
     void getTours_returnsListOfTours() throws Exception {
-        Page<TourDto> tours = new PageImpl<>(List.of(new TourDto()), PageRequest.of(0, 10), 1);
-        when(tourService.getTours(0, 10)).thenReturn(tours);
+        Page<TourDto> tours = new PageImpl<>(List.of(getExpTourDto()), PageRequest.of(0, 10), 1);
+        when(tourService.getTours(any(), any())).thenReturn(tours);
 
         mockMvc.perform(get(TourController.TOUR_API_PATH))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content").isArray())
-                .andExpect(jsonPath("$.content.length()").value(1));
+                .andExpect(jsonPath("$.content.length()").value(1))
+                .andExpect(jsonPath("$.totalElements").value(1))
+                .andExpect(jsonPath("$.totalPages").value(1));
     }
 
-    @Test
+        @Test
     void postTour_createsNewTour() throws Exception {
         String tourId = UUID.randomUUID().toString();
         TourDto tourDto = getExpTourDto();
