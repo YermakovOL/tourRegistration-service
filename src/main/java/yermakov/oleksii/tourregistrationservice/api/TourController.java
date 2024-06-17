@@ -22,14 +22,6 @@ public class TourController implements TourCrudApi {
     private final TourService tourService;
 
     @Override
-    @GetMapping
-    public ResponseEntity<Page<TourDto>> getTours(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "size", defaultValue = "25") Integer size) {
-        return ResponseEntity.ok(tourService.getTours(page, size));
-    }
-
-    @Override
     @PostMapping
     public ResponseEntity<URI> postTour(@RequestBody TourDto tourDto) {
         return ResponseEntity.created(URI.create(TOUR_API_PATH + "/" + tourService.saveTour(tourDto))).build();
@@ -40,14 +32,6 @@ public class TourController implements TourCrudApi {
     public ResponseEntity<Void> deleteTourById(@PathVariable("tourId") UUID tourId) {
         if (!tourService.deleteTourById(tourId)) throw new NotFoundException();
         return ResponseEntity.noContent().build();
-    }
-
-    @Override
-    @GetMapping(TOUR_ID_PATH)
-    public ResponseEntity<TourDto> getTourById(@PathVariable("tourId") UUID tourId) {
-        Optional<TourDto> tourById = tourService.getTourById(tourId);
-        if (tourById.isEmpty()) throw new NotFoundException();
-        return ResponseEntity.ok(tourById.get());
     }
 
     @Override

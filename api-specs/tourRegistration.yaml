@@ -8,47 +8,6 @@ servers:
 
 paths:
   /tourCrud:
-    get:
-      summary: Get list of tours
-      description: Returns a list of all tours with pagination support.
-      operationId: getTours
-      parameters:
-        - name: page
-          in: query
-          description: Page number (starting from 0)
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          description: Page size
-          schema:
-            type: integer
-            default: 10
-      responses:
-        '200':
-          description: Successful response with a paginated list of tours
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/TourDto'
-                  totalElements:
-                    type: integer
-                    description: Total number of tours
-                  totalPages:
-                    type: integer
-                    description: Total number of pages
-                  size:
-                    type: integer
-                    description: Number of tours per page
-                  number:
-                    type: integer
-                    description: Current page number
     post:
       summary: Create a new tour
       description: Creates a new tour based on the provided data.
@@ -74,27 +33,6 @@ paths:
                 type: string
 
   /tourCrud/{tourId}:
-    get:
-      summary: Get tour by ID
-      description: Returns information about a tour by its ID.
-      operationId: getTourById
-      parameters:
-        - name: tourId
-          in: path
-          description: Tour ID
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Successful response with tour data
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TourDto'
-        '404':
-          description: Tour not found
     put:
       summary: Update tour
       description: Updates tour information by its ID.
