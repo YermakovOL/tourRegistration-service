@@ -6,12 +6,15 @@ info:
 servers:
   - url: 'http://localhost:8080/tour'  # Replace with your base URL
 
+
 paths:
   /tourCrud:
     post:
       summary: Create a new tour
       description: Creates a new tour based on the provided data.
       operationId: postTour
+      security:
+        - OAuth2Bearer: []
       requestBody:
         description: New tour data
         required: true
@@ -22,10 +25,6 @@ paths:
       responses:
         '201':
           description: Tour successfully created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TourDto'
           headers:
             Location:
               description: URI of the created tour
@@ -37,6 +36,8 @@ paths:
       summary: Update tour
       description: Updates tour information by its ID.
       operationId: putTourById
+      security:
+        - OAuth2Bearer: [ ]
       parameters:
         - name: tourId
           in: path
@@ -55,16 +56,16 @@ paths:
       responses:
         '200':
           description: Tour successfully updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TourDto'
+        '401':
+          description: Unauthorized access  
         '404':
           description: Tour not found
     patch:
       summary: Partially update tour
       description: Partially updates tour information by its ID.
       operationId: patchTourById
+      security:
+        - OAuth2Bearer: [ ]
       parameters:
         - name: tourId
           in: path
@@ -83,16 +84,16 @@ paths:
       responses:
         '200':
           description: Tour successfully partially updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TourDto'
+        '401':
+          description: Unauthorized access  
         '404':
           description: Tour not found
     delete:
       summary: Delete tour
       description: Deletes a tour by its ID.
       operationId: deleteTourById
+      security:
+        - OAuth2Bearer: [ ]
       parameters:
         - name: tourId
           in: path
@@ -104,18 +105,21 @@ paths:
       responses:
         '204':
           description: Tour successfully deleted
+        '401':
+          description: Unauthorized access
         '404':
           description: Tour not found
-
 components:
+  securitySchemes:
+    OAuth2Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+
   schemas:
     TourDto:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-          description: Tour ID
         name:
           type: string
           description: Tour name
@@ -135,4 +139,4 @@ components:
           description: Tour end date
       required:
         - name
-        - priceS
+        - price
