@@ -9,7 +9,6 @@ import yermakov.oleksii.tourregistrationservice.model.TourDto;
 import yermakov.oleksii.tourregistrationservice.service.TourService;
 
 import java.net.URI;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
