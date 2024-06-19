@@ -123,12 +123,18 @@ components:
         name:
           type: string
           description: Tour name
+          minLength: 1
+          maxLength: 100
         description:
           type: string
           description: Tour description
+          minLength: 1
+          maxLength: 1000
         price:
           type: number
+          format: double
           description: Tour price
+          minimum: 0
         startDate:
           type: string
           format: date
@@ -139,4 +145,7 @@ components:
           description: Tour end date
       required:
         - name
+        - description
         - price
+        - startDate
+        - endDate

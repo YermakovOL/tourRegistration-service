@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
 import jakarta.persistence.Id;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Setter;
@@ -78,7 +78,6 @@ public class TourDto {
    * Tour name
    * @return name
   */
-  @NotNull 
   @Schema(name = "name", description = "Tour name", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("name")
   public String getName() {
@@ -110,7 +109,6 @@ public class TourDto {
    * Tour price
    * @return price
   */
-  @NotNull @Valid 
   @Schema(name = "price", description = "Tour price", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("price")
   public BigDecimal getPrice() {
@@ -126,7 +124,6 @@ public class TourDto {
    * Tour start date
    * @return startDate
   */
-  @Valid 
   @Schema(name = "startDate", description = "Tour start date", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("startDate")
   public LocalDate getStartDate() {
@@ -142,7 +139,6 @@ public class TourDto {
    * Tour end date
    * @return endDate
   */
-  @Valid 
   @Schema(name = "endDate", description = "Tour end date", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("endDate")
   public LocalDate getEndDate() {
