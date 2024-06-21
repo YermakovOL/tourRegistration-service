@@ -1,0 +1,46 @@
+version: '3.8'  # Specify Docker Compose version
+
+services:
+  postgres:
+    image: my-postgres  # Use the image you built
+    restart: always      # Restart the container if it stops
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=dbpassword
+      - POSTGRES_DB=tour_registration
+    ports:
+      - "5432:5432"   # Map container's port 5432 to host's port 5432
+
+  elasticsearch:
+    image: elasticsearch:7.17.22
+    restart: always
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.22
+    restart: always
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - /c/Users/user/.m2/repository/org/postgresql/postgresql/42.6.2/postgresql-42.6.2.jar:/usr/share/logstash/postgresql-42.6.2.jar
+    depends_on:
+      - elasticsearch  # Ensure Elasticsearch starts before Logstash
+      - postgres      # Ensure PostgreSQL starts before Logstash
+    environment:
+      - xpack.monitoring.enabled=false  # Disable X-Pack monitoring if not needed
+#      - XPACK_MONITORING_ENABLED=false # For Logstash 8.x and newer, use this instead
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+
+#docker build -t my-postgres . #
+#docker run -d --name postgres-continer -p 5432:5432 my-postgres #
+#docker exec -it postgres-container bash #
+#psql -U user -d tour_registration #
+
+#sudo docker run -d --name elasticsearch --net bridge -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.17.22
+#sudo docker pull docker.elastic.co/logstash/logstash:7.17.22
+#docker run -d --name my-logstash \
+#    -v /path/to/your/logstash.conf:/usr/share/logstash/pipeline/logstash.conf \
+#    docker.elastic.co/logstash/logstash:<version>
