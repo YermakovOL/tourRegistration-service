@@ -24,6 +24,7 @@ services:
     image: docker.elastic.co/logstash/logstash:7.17.22
     restart: always
     volumes:
+      - logstash_data:/usr/share/logstash/data
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - /c/Users/user/.m2/repository/org/postgresql/postgresql/42.6.2/postgresql-42.6.2.jar:/usr/share/logstash/postgresql-42.6.2.jar
     depends_on:
