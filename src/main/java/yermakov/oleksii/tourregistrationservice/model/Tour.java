@@ -55,7 +55,4 @@ public class Tour{
     }
     @CreationTimestamp
     private LocalDate createdDate;
-    @CurrentTimestamp
-    @Column(name = "modification_time")
-    private LocalDateTime modificationTime;
 }
