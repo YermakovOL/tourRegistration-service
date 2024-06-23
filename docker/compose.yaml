@@ -2,7 +2,7 @@ version: '3.8'  # Specify Docker Compose version
 
 services:
   postgres:
-    image: my-postgres  # Use the image you built
+    image: postgres:16  # Use the image you built
     restart: always      # Restart the container if it stops
     environment:
       - POSTGRES_USER=user
@@ -24,7 +24,7 @@ services:
     image: docker.elastic.co/logstash/logstash:7.17.22
     restart: always
     volumes:
-      - logstash_data:/usr/share/logstash/data
+      - ./logstash_data:/usr/share/logstash/data
       - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - /c/Users/user/.m2/repository/org/postgresql/postgresql/42.6.2/postgresql-42.6.2.jar:/usr/share/logstash/postgresql-42.6.2.jar
     depends_on:
