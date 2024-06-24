@@ -42,17 +42,18 @@ public class Tour{
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @NotNull
+    @Column(name = "start_date",nullable = false)
     private LocalDate startDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @NotNull
+    @Column(name = "end_date",nullable = false)
     private LocalDate endDate;
     @AssertTrue(message = "The end date must be later than the start date.")
     public boolean isValidDateRange() {
         return !endDate.isBefore(startDate);
     }
     @CreationTimestamp
+    @Column(name = "created_date",nullable = false)
     private LocalDate createdDate;
 }
