@@ -45,3 +45,14 @@ services:
 #docker run -d --name my-logstash \
 #    -v /path/to/your/logstash.conf:/usr/share/logstash/pipeline/logstash.conf \
 #    docker.elastic.co/logstash/logstash:<version>
+
+#INSERT INTO tour (id, created_date, description, end_date, name, price, start_date)
+#VALUES (
+#    gen_random_uuid(),   -- Генерируем случайный UUID
+#    '2023-06-28',       -- Пример даты создания
+#    'Описание тура',      -- Пример описания
+#    '2023-07-15',       -- Пример даты окончания
+#    'Путешествие в горы',  -- Пример названия
+#    120000.50,           -- Пример цены
+#    '2023-07-01'        -- Пример даты начала
+#); -- tour example
