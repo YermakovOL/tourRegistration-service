@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
-@Document(indexName = "tours")
+@Document(indexName = "tours", createIndex = false)
 public class TourDocument {
     @Id
     private UUID id;
@@ -19,7 +19,5 @@ public class TourDocument {
     private LocalDate startDate;
     @Field(value = "end_date", type = FieldType.Date)
     private LocalDate endDate;
-    @Field(value = "created_date", type = FieldType.Date)
-    private LocalDate createdDate;
 }
 

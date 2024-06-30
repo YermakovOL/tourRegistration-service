@@ -1,0 +1,15 @@
+  {
+      "analysis": {
+        "analyzer": {
+          "stop_stemmer_analyzer": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": [
+              "lowercase",
+              "stop",
+              "stemmer"
+            ]
+        }
+      }
+    }
+  }

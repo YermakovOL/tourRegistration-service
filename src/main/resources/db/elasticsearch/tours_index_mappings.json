@@ -1,0 +1,30 @@
+{
+  "dynamic": "strict",
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "text",
+        "analyzer": "standard"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "stop_stemmer_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "price": {
+        "type": "double"
+      },
+      "start_date": {
+        "type": "date"
+      },
+      "end_date": {
+        "type": "date"
+      }
+    }
+}
