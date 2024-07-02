@@ -27,7 +27,7 @@ public class TourServiceImpl implements TourService {
     @Override
     public Page<TourDto> getTours(Integer page, Integer size) {
         return tourRepository.findAll(buildPageRequest(page,size))
-                .map(tourMapper::convertTourIntoDto);
+                .map(tourMapper::convert);
     }
     public PageRequest buildPageRequest(Integer pageNumber, Integer pageSize) {
         int queryPageNumber;
@@ -54,7 +54,7 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public String saveTour(TourDto tourDto) {
-        Tour save = tourRepository.save(tourMapper.convertDtoIntoTour(tourDto));
+        Tour save = tourRepository.save(tourMapper.convertIntoEntity(tourDto));
         return save.getId().toString();
     }
 
@@ -69,7 +69,7 @@ public class TourServiceImpl implements TourService {
     public Optional<TourDto> getTourById(UUID tourId) {
         Optional<Tour> byId = tourRepository.findById(tourId);
         if (byId.isEmpty()) return Optional.empty();
-        else return byId.map(tourMapper::convertTourIntoDto);
+        else return byId.map(tourMapper::convert);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class TourServiceImpl implements TourService {
             tour.setStartDate(tourDto.getStartDate());
             tour.setEndDate(tourDto.getEndDate());
             Tour savedTour = tourRepository.save(tour);
-            return tourMapper.convertTourIntoDto(savedTour);
+            return tourMapper.convert(savedTour);
         });
     }
 
@@ -106,7 +106,7 @@ public class TourServiceImpl implements TourService {
 
             // Сохраняем обновленный объект в базе данных
             Tour savedTour = tourRepository.save(tour);
-            return tourMapper.convertTourIntoDto(savedTour); // Возвращаем обновленный DTO
+            return tourMapper.convert(savedTour); // Возвращаем обновленный DTO
         });
     }
 }

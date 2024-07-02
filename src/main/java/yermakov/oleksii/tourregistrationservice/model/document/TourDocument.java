@@ -1,6 +1,9 @@
 package yermakov.oleksii.tourregistrationservice.model.document;
 
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -8,6 +11,9 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(indexName = "tours", createIndex = false)
 public class TourDocument {
     @Id
