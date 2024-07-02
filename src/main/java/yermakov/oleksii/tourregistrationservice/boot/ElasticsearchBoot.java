@@ -102,8 +102,8 @@ public class ElasticsearchBoot implements CommandLineRunner {
         if (!JsonComparison.isNodeContained(currentSettingsNode, originalSettingsNode)) {
             throw new ElasticsearchBootException("Current settings do not match the original settings");
         }
-//        if (!JsonComparison.isNodeContained(currentMappingsNode, originalMappingsNode)) {
-//            throw new ElasticsearchBootException("Current mappings do not match the original mappings");
-//        }
+        if (!JsonComparison.isNodeContained(currentMappingsNode, originalMappingsNode)) {
+            throw new ElasticsearchBootException("Current mappings do not match the original mappings");
+        }
     }
 }
