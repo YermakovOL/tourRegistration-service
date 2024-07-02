@@ -16,7 +16,6 @@ import yermakov.oleksii.tourregistrationservice.service.mapper.TourMapper;
 import yermakov.oleksii.tourregistrationservice.service.repository.TourRepository;
 
 import java.math.BigDecimal;
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
