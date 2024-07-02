@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.Iterator;
-import java.util.Map;
 
 public class JsonComparison {
 
@@ -15,18 +14,13 @@ public class JsonComparison {
 
         if (node.isObject() && subNode.isObject()) {
             ObjectNode objNode = (ObjectNode) node;
-            ObjectNode objSubNode = (ObjectNode) subNode;
-
-            Iterator<Map.Entry<String, JsonNode>> fields = objSubNode.fields();
-            while (fields.hasNext()) {
-                Map.Entry<String, JsonNode> field = fields.next();
-                if (!objNode.has(field.getKey()) || !isNodeContained(objNode.get(field.getKey()), field.getValue())) {
-                    return false;
-                }
+            Iterator<JsonNode> fields = objNode.elements();
+            for (Iterator<JsonNode> it = fields; it.hasNext(); ) {
+                JsonNode json = it.next();
+                if(json.equals(subNode)) return true;
+                else return isNodeContained(json,subNode);
             }
-            return true;
         }
-
         return false;
     }
 }

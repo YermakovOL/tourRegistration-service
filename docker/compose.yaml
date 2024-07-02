@@ -50,9 +50,9 @@ services:
 #VALUES (
 #    gen_random_uuid(),
 #    '2023-06-28',
-#    'Описание тура',
+#    'Tour description',
 #    '2023-07-15',
-#    'Путешествие в горы',
+#    'Trip to the mountains',
 #    120000.50,
 #    '2023-07-01'
 #); -- tour example
