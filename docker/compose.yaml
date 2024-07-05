@@ -8,6 +8,8 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=dbpassword
       - POSTGRES_DB=tour_registration
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"   # Map container's port 5432 to host's port 5432
 
@@ -16,6 +18,8 @@ services:
     restart: always
     environment:
       - discovery.type=single-node
+    volumes:
+      - ./elasticsearch_data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -34,12 +38,24 @@ services:
       - xpack.monitoring.enabled=false  # Disable X-Pack monitoring if not needed
 #      - XPACK_MONITORING_ENABLED=false # For Logstash 8.x and newer, use this instead
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    hostname: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=rmuser
+      - RABBITMQ_DEFAULT_PASS=rmpassword
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
 #docker build -t my-postgres . #
 #docker run -d --name postgres-continer -p 5432:5432 my-postgres #
 #docker exec -it postgres-container bash #
-#psql -U user -d tour_registration #
 
+#psql -U user -d tour_registration #
 #sudo docker run -d --name elasticsearch --net bridge -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.17.22
 #sudo docker pull docker.elastic.co/logstash/logstash:7.17.22
 #docker run -d --name my-logstash \
