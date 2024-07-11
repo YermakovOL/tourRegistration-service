@@ -8,11 +8,13 @@
 - [Running the Project](#running-the-project)
 - [Integration Testing](#integration-testing)
 
-## Project Overview
-This project implements CRUD functionality using advanced technologies and practices such as OAuth2, OpenID, ElasticSearch, and RabbitMQ. It consists of two microservices:
+ Full project consists of two microservices:
 
 - **localhost:8080 - tourRegistration-service**
 - **localhost:8081 - [travelAgency-OAuth2-client](https://github.com/YermakovOL/travelAgency-OAuth2-client)**
+  
+## Project Overview
+This microservice implements CRUD functionality using advanced technologies and practices such as OAuth2, OpenID, ElasticSearch, and RabbitMQ.
 
 ## Google OAuth2
 
