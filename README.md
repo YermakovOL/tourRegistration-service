@@ -1,12 +1,12 @@
 
-[Project Overview](#project-overview)
-[Google OAuth2](#google-oauth2)
-[ElasticSearch Configuration](#elasticsearch-configuration)
-[Spring Cloud Contract (SCC)](#spring-cloud-contract-scc)
-[TestContainers](#testcontainers)
-[OpenAPI](#openapi)
-[Running the Project](#running-the-project)
-[Integration Testing](#integration-testing)
+- [Project Overview](#project-overview)
+- [Google OAuth2](#google-oauth2)
+- [ElasticSearch Configuration](#elasticsearch-configuration)
+- [Spring Cloud Contract (SCC)](#spring-cloud-contract-scc)
+- [TestContainers](#testcontainers)
+- [OpenAPI](#openapi)
+- [Running the Project](#running-the-project)
+- [Integration Testing](#integration-testing)
 
 ## Project Overview
 This project implements CRUD functionality using advanced technologies and practices such as OAuth2, OpenID, ElasticSearch, and RabbitMQ. It consists of two microservices:
@@ -16,10 +16,15 @@ This project implements CRUD functionality using advanced technologies and pract
 
 ## Google OAuth2
 
-The tour registration service, in OpenID terminology, is a resource server. Access to some of its functions is only available with an access token (opaque token). To obtain an access token, the end user must either use the HTML page or directly access the endpoints of the travel-agency-client. The Spring framework handles the logic of redirecting the user to the Google authorization page, where the user voluntarily provides their data. Spring uses internal tools to store user data, which will be transmitted in requests to the tourRegistration-service.
-Token validation is implemented in the class that implements the `OpaqueTokenIntrospector` interface. (src/main/java/yermakov/oleksii/tourregistrationservice/config/GoogleTokenIntrospector.java)
-OAuth2 authentication is enabled in the configuration class through the SecurityFilterChain bean. (src/main/java/yermakov/oleksii/tourregistrationservice/config/SpringSecurityConfig.java)
+The tour registration service, in OpenID terminology, is a resource server. Access to some of its functions is only available with an access token (opaque token). To obtain an access token, the end user must either use the HTML page or directly access the endpoints of the travel-agency-client.
+The Spring framework handles the logic of redirecting the user to the Google authorization page, where the user voluntarily provides their data. 
+Spring uses internal tools to store user data, which will be transmitted in requests to the tourRegistration-service.
 
+Token validation is implemented in the class that implements the `OpaqueTokenIntrospector` interface. 
+
+OAuth2 authentication is enabled in the configuration class through the SecurityFilterChain bean.
+- GoogleTokenIntrospector (`src/main/java/yermakov/oleksii/tourregistrationservice/config/GoogleTokenIntrospector.java`)
+- SpringSecurityConfig (`src/main/java/yermakov/oleksii/tourregistrationservice/config/SpringSecurityConfig.java`)
 ## ElasticSearch Configuration
 
 ElasticSearch enables efficient and intelligent text data search. Its configuration is defined in a directory with two files:
@@ -42,7 +47,9 @@ Contracts are designed to document the format of API requests and responses. For
 ## TestContainers
 
 A great way to use test Docker containers. In the base class for SCC tests, I define all necessary external dependencies for successful testing.
-``    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
+   
+```
+static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             "postgres:16"
     ).withReuse(true);
 
@@ -54,7 +61,8 @@ A great way to use test Docker containers. In the base class for SCC tests, I de
         registry.add("spring.flyway.url", postgres::getJdbcUrl);
         registry.add("spring.flyway.user", postgres::getUsername);
         registry.add("spring.flyway.password", postgres::getPassword);
-    }``
+    }
+```
 - Base test class (`src/test/java/yermakov/oleksii/tourregistrationservice/contractVerifier/BaseContractTest.java`).
 
 
@@ -69,10 +77,14 @@ For correct generation, I used Mustache templates. I used the generated code as 
 
 ## Running the Project
 
-``cd docker
+```
+cd docker
 docker-compose up -d
-mvn spring-boot:run``
+mvn spring-boot:run
+```
 
 ## Integration Testing
 
-``mvn clean install``
+```
+mvn clean install
+```
