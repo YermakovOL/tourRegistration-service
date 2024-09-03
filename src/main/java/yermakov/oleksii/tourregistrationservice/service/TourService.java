@@ -3,7 +3,6 @@ package yermakov.oleksii.tourregistrationservice.service;
 import org.springframework.data.domain.Page;
 import yermakov.oleksii.tourregistrationservice.model.TourDto;
 
-import java.net.URI;
 import java.util.Optional;
 import java.util.UUID;
 

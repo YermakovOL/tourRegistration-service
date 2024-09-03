@@ -1,13 +1,16 @@
 package yermakov.oleksii.tourregistrationservice.model;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class SearchQuery {
 
     @Size(min = 1, message = "Query must not be empty")
@@ -25,13 +28,6 @@ public class SearchQuery {
     @DecimalMax(value = "10000.0", inclusive = true, message = "Maximum price must be less than 10000")
     private String maxPrice;
 
-    public SearchQuery(String query, String minStartDate, String maxStartDate, String minPrice, String maxPrice) {
-        this.query = query;
-        this.minStartDate = minStartDate;
-        this.maxStartDate = maxStartDate;
-        this.minPrice = minPrice;
-        this.maxPrice = maxPrice;
-    }
     @AssertTrue(message = "start date is later than end date")
     public boolean isValidDateRange() {
         if (minStartDate == null || maxStartDate == null) {

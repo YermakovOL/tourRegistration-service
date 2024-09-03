@@ -32,12 +32,12 @@ class TourControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper objectMapper; // For JSON serialization/deserialization
+    private ObjectMapper objectMapper;
 
     @MockBean
     private TourService tourService;
 
-        @Test
+    @Test
     void postTour_createsNewTour() throws Exception {
         String tourId = UUID.randomUUID().toString();
         TourDto tourDto = getExpTourDto();
@@ -118,7 +118,7 @@ class TourControllerTest {
     }
 
     private TourDto getExpTourDto() {
-        return  TourDto.builder()
+        return TourDto.builder()
                 .id(UUID.randomUUID())
                 .name("Tour to Paris")
                 .description("A wonderful tour to Paris")

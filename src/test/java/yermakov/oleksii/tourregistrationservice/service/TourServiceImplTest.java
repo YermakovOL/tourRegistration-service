@@ -2,17 +2,17 @@ package yermakov.oleksii.tourregistrationservice.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import yermakov.oleksii.tourregistrationservice.model.Tour;
 import yermakov.oleksii.tourregistrationservice.model.TourDto;
-import yermakov.oleksii.tourregistrationservice.service.mapper.TourMapper;
+import yermakov.oleksii.tourregistrationservice.service.mapper.TourMapperImpl;
 import yermakov.oleksii.tourregistrationservice.service.repository.TourRepository;
 
 import java.math.BigDecimal;
@@ -29,15 +29,17 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class TourServiceImplTest {
-    @MockBean
+
+    @Mock
     TourRepository tourRepository;
-    @Autowired
-    TourMapper tourMapper;
-    @Autowired
-    TourService tourService;
+
+    @Spy
+    TourMapperImpl tourMapper;
+
+    @InjectMocks
+    TourServiceImpl tourService;
 
     private static final List<TourDto> tourDtoList = getExpTourDto();
     private static final List<Tour> tourList = getExpTour();
